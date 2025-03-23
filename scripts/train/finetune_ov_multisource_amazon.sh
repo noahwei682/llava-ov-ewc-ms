@@ -30,8 +30,8 @@ export NODE_RANK=0
 # - export MASTER_ADDR="10.36.38.89"
 # - export MASTER_PORT="23456"
 
-export RUN_NAME="llava-onevision-google-siglip-so400m-patch14-384-lmms-lab-llava-onevision-qwen2-7b-si-ewc-lambda1-amazon-multisource"
-export OUTPUT_DIR="/blob/weiwei/llava_checkpoint/llava-onevision-google-siglip-so400m-patch14-384-lmms-lab-llava-onevision-qwen2-7b-si-ewc-lambda1-amazon-multisource"
+export RUN_NAME="llava-onevision-google-siglip-so400m-patch14-384-lmms-lab-llava-onevision-qwen2-7b-si-ewc-lambda1-amazon-multisource-all"
+export OUTPUT_DIR="/blob/weiwei/llava_checkpoint/llava-onevision-google-siglip-so400m-patch14-384-lmms-lab-llava-onevision-qwen2-7b-si-ewc-lambda1-amazon-multisource-all"
 export PREV_STAGE_CHECKPOINT="lmms-lab/llava-onevision-qwen2-7b-si"
 
 
@@ -67,7 +67,7 @@ ACCELERATE_CPU_AFFINITY=1 torchrun --nproc_per_node $NPROC_PER_NODE --nnodes $NO
     --model_name_or_path $PREV_STAGE_CHECKPOINT \
     --version $PROMPT_VERSION \
     --data_path "/home/aiscuser/dataset/Amazon/{meta_All_Beauty_exist_gene_ITdata,meta_Appliances_exist_gene_ITdata,meta_Arts_Crafts_and_Sewing_exist_gene_ITdata,meta_Beauty_and_Personal_Care_exist_gene_ITdata,meta_Cell_Phones_and_Accessories_exist_gene_ITdata,meta_Electronics_exist_gene_ITdata,meta_Gift_Cards_exist_gene_ITdata,meta_Grocery_and_Gourmet_Food_exist_gene_ITdata,meta_Health_and_Household_exist_gene_ITdata,meta_Industrial_and_Scientific_exist_gene_ITdata,meta_Magazine_Subscriptions_exist_gene_ITdata,meta_Movies_and_TV_exist_gene_ITdata,meta_Patio_Lawn_and_Garden_exist_gene_ITdata,meta_Sports_and_Outdoors_exist_gene_ITdata,meta_Subscription_Boxes_exist_gene_ITdata,meta_Toys_and_Games_exist_gene_ITdata}.json" \
-    --image_folder /home/aiscuser/dataset/Amazon/image \
+    --image_folder /home/aiscuser/dataset/Amazon/images \
     --mm_tunable_parts="mm_vision_tower,mm_mlp_adapter,mm_language_model" \
     --mm_vision_tower_lr=2e-6 \
     --vision_tower $VISION_MODEL_VERSION \
@@ -88,7 +88,7 @@ ACCELERATE_CPU_AFFINITY=1 torchrun --nproc_per_node $NPROC_PER_NODE --nnodes $NO
     --gradient_accumulation_steps 2 \
     --evaluation_strategy "no" \
     --save_strategy "steps" \
-    --save_steps 10 \
+    --save_steps 100 \
     --save_total_limit 1 \
     --learning_rate 1e-5 \
     --weight_decay 0. \
@@ -106,7 +106,7 @@ ACCELERATE_CPU_AFFINITY=1 torchrun --nproc_per_node $NPROC_PER_NODE --nnodes $NO
     --dataloader_drop_last True \
     --frames_upbound 32 \
     --use_ewc true \
-    --ewc_lambda 0.1
+    --ewc_lambda 1
 exit 0;
 
     # --data_path "/home/aiscuser/dataset/Amazon/{meta_All_Beauty_exist_gene_ITdata,meta_Appliances_exist_gene_ITdata,meta_Arts_Crafts_and_Sewing_exist_gene_ITdata,meta_Beauty_and_Personal_Care_exist_gene_ITdata,meta_Cell_Phones_and_Accessories_exist_gene_ITdata,meta_Digital_Music_exist_gene_ITdata,meta_Electronics_exist_gene_ITdata,meta_Gift_Cards_exist_gene_ITdata,meta_Grocery_and_Gourmet_Food_exist_gene_ITdata,meta_Health_and_Household_exist_gene_ITdata,meta_Industrial_and_Scientific_exist_gene_ITdata,meta_Magazine_Subscriptions_exist_gene_ITdata,meta_Movies_and_TV_exist_gene_ITdata,meta_Patio_Lawn_and_Garden_exist_gene_ITdata,meta_Sports_and_Outdoors_exist_gene_ITdata,meta_Subscription_Boxes_exist_gene_ITdata,meta_Toys_and_Games_exist_gene_ITdata}.json" \
