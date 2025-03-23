@@ -22,6 +22,8 @@ import json
 import logging
 import pathlib
 from typing import Dict, Optional, Sequence, List
+# import ipdb; ipdb.set_trace()
+import PIL
 from PIL import Image, ImageFile
 from packaging import version
 import numpy as np
@@ -1067,6 +1069,12 @@ class LazySupervisedDataset(Dataset):
         # print(f"\n\nInspecting the image path, folder = {image_folder}, image={image_file}\n\n")
         try:
             image = Image.open(os.path.join(image_folder, image_file)).convert("RGB")
+        except PIL.UnidentifiedImageError as exn:
+            print(f"PIL.UnidentifiedImageError: Cannot identify image file {image_file}. Exception: {exn}")
+            # Create a small blank placeholder image instead of raising an exception
+            image = Image.new('RGB', (224, 224), color=(128, 128, 128))
+            image_size = image.size
+            return processor.preprocess(image, return_tensors="pt")["pixel_values"][0], image_size, "image" 
         except Exception as exn:
             print(f"Failed to open image {image_file}. Exception:", exn)
             raise exn
