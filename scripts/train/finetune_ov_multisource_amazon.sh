@@ -65,8 +65,8 @@ ACCELERATE_CPU_AFFINITY=1 torchrun --nproc_per_node $NPROC_PER_NODE --nnodes $NO
     --deepspeed scripts/zero3.json \
     --model_name_or_path $PREV_STAGE_CHECKPOINT \
     --version $PROMPT_VERSION \
-    --data_path ".msdata/{meta_All_Beauty_exist_gene_ITdata,meta_Appliances_exist_gene_ITdata,meta_Arts_Crafts_and_Sewing_exist_gene_ITdata,meta_Beauty_and_Personal_Care_exist_gene_ITdata,meta_Cell_Phones_and_Accessories_exist_gene_ITdata,meta_Electronics_exist_gene_ITdata,meta_Gift_Cards_exist_gene_ITdata,meta_Grocery_and_Gourmet_Food_exist_gene_ITdata,meta_Health_and_Household_exist_gene_ITdata,meta_Industrial_and_Scientific_exist_gene_ITdata,meta_Magazine_Subscriptions_exist_gene_ITdata,meta_Movies_and_TV_exist_gene_ITdata,meta_Patio_Lawn_and_Garden_exist_gene_ITdata,meta_Sports_and_Outdoors_exist_gene_ITdata,meta_Subscription_Boxes_exist_gene_ITdata,meta_Toys_and_Games_exist_gene_ITdata}.json" \
-    --image_folder .msdata/images \
+    --data_path "./msdata/{meta_All_Beauty_exist_gene_ITdata,meta_Appliances_exist_gene_ITdata,meta_Arts_Crafts_and_Sewing_exist_gene_ITdata,meta_Beauty_and_Personal_Care_exist_gene_ITdata,meta_Cell_Phones_and_Accessories_exist_gene_ITdata,meta_Electronics_exist_gene_ITdata,meta_Gift_Cards_exist_gene_ITdata,meta_Grocery_and_Gourmet_Food_exist_gene_ITdata,meta_Health_and_Household_exist_gene_ITdata,meta_Industrial_and_Scientific_exist_gene_ITdata,meta_Magazine_Subscriptions_exist_gene_ITdata,meta_Movies_and_TV_exist_gene_ITdata,meta_Patio_Lawn_and_Garden_exist_gene_ITdata,meta_Sports_and_Outdoors_exist_gene_ITdata,meta_Subscription_Boxes_exist_gene_ITdata,meta_Toys_and_Games_exist_gene_ITdata}.json" \
+    --image_folder ./msdata/images \
     --mm_tunable_parts="mm_vision_tower,mm_mlp_adapter,mm_language_model" \
     --mm_vision_tower_lr=2e-6 \
     --vision_tower $VISION_MODEL_VERSION \
