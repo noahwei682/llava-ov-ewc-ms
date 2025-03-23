@@ -1,4 +1,14 @@
 import torch
+import argparse
+import os
+import json
+import copy
+from tqdm import tqdm
+from transformers import AutoTokenizer
+import shortuuid
+import PIL
+from PIL import Image
+from io import BytesIO
 
 from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
 from llava.conversation import conv_templates, SeparatorStyle
@@ -138,9 +148,17 @@ class Predictor(BasePredictor):
 
 
 def load_image(image_file):
-    if image_file.startswith("http") or image_file.startswith("https"):
-        response = requests.get(image_file)
-        image = Image.open(BytesIO(response.content)).convert("RGB")
-    else:
-        image = Image.open(image_file).convert("RGB")
-    return image
+    try:
+        if image_file.startswith("http") or image_file.startswith("https"):
+            response = requests.get(image_file)
+            image = Image.open(BytesIO(response.content)).convert("RGB")
+        else:
+            image = Image.open(image_file).convert("RGB")
+        return image
+    except PIL.UnidentifiedImageError as e:
+        print(f"PIL.UnidentifiedImageError: Cannot identify image file {image_file}. Exception: {e}")
+        # Create a small blank placeholder image instead of raising an exception
+        return Image.new('RGB', (224, 224), color=(128, 128, 128))
+    except Exception as e:
+        print(f"Error loading image {image_file}: {e}")
+        raise e
