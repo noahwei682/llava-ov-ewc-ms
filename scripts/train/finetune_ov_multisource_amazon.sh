@@ -66,8 +66,8 @@ ACCELERATE_CPU_AFFINITY=1 torchrun --nproc_per_node $NPROC_PER_NODE --nnodes $NO
     --lora_enable True \
     --model_name_or_path $PREV_STAGE_CHECKPOINT \
     --version $PROMPT_VERSION \
-    --data_path "./msdata/${TRAIN_JSON}.json" \
-    --image_folder ./msdata/images \
+    --data_path "./msdata/split/split_small/{${TRAIN_JSON}}.json" \
+    --image_folder ./msdata/images/images/ \
     --mm_vision_tower_lr=2e-6 \
     --vision_tower $VISION_MODEL_VERSION \
     --mm_projector_type mlp2x_gelu \
